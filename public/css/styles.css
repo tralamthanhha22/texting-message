@@ -1,0 +1,114 @@
+body {
+  background-image: linear-gradient(pink, hsl(215, 65%, 77%));
+}
+.chat-widget {
+  background-image: linear-gradient(pink, hsl(215, 65%, 77%));
+  padding: 10px;
+  height: 100vh;
+}
+.chat-item {
+  padding: 5px;
+  display: block;
+  min-height: 100px;
+  overflow: hidden;
+}
+.chat-image {
+  display: inline-block;
+}
+.chat-image > img {
+  border-radius: 5px;
+  display: inline-block;
+}
+#chat-Right {
+  background-image: linear-gradient(rgb(148, 191, 240), pink);
+}
+#chat-Left {
+  background-color: rgb(241, 223, 223);
+}
+.chat-text {
+  display: inline-block;
+  width: 85%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.chat-content > p {
+  margin: 0;
+  display: block;
+  width: 100%;
+  font-weight: 500;
+}
+.chat-head {
+  width: 100%;
+  padding: 2px;
+  display: inline-block;
+  font-weight: bold;
+  overflow: hidden;
+}
+.chat-head > p {
+  float: left;
+  margin: 0;
+  color: black;
+}
+.chat-head > span {
+  float: right;
+  font-size: x-small;
+  color: black;
+}
+.chat-text-indicator-left {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-right: 12px solid rgb(148, 191, 240), pink;
+  border-bottom: 10px solid transparent;
+  display: inline-block;
+  position: relative;
+  left: 5px;
+}
+
+.chat-text-indicator-right {
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 12px solid rgb(148, 191, 240), pink;
+  border-bottom: 10px solid transparent;
+  display: inline-block;
+  position: relative;
+  right: 2px;
+  top: 10px;
+  float: right;
+}
+
+.chat-line {
+  display: inline-block;
+  width: 80%;
+  margin: 10px;
+}
+@media (max-width: 768px) {
+  .chat-line {
+    width: 60%;
+  }
+}
+
+.chat-item-left .chat-image,
+.chat-item-left .chat-line {
+  float: left;
+}
+.chat-item-right .chat-image,
+.chat-item-right .chat-line,
+.chat-item-right .chat-text {
+  float: right;
+}
+
+.chat-item-left {
+  animation-delay: 0s;
+}
+
+.chat-item-right {
+  animation-delay: 0.5s;
+}
+
+.zoomInRight {
+  animation-delay: 1s;
+}

@@ -1,0 +1,71 @@
+<div class="chat-widget">
+  <div class="chat-conversation"></div>
+  <form>
+    <div class="form-group mt-5">
+      <textarea id="nameInput" class="form-control" placeholder="Enter your name" required></textarea>
+      <textarea id="messInput" class="form-control" placeholder="Enter your message" required></textarea>
+    </div>
+    <button type="submit" id="form-submit" class="btn btn-success btn-lg pull-right">Send</button>
+  </form>
+</div>
+
+<script>
+  $(function () {
+    var socket = io(); // Create a socket connection
+
+    $('form').submit(function () {
+      var time = new Date().toLocaleTimeString(); // Get the current time
+      var nameInput = ''; // Variable to store the name input
+      nameInput = $('#nameInput').val(); // Get the value of the name input
+      var mess = $('#messInput').val(); // Get the value of the message input
+      let socketID = socket.id; // Get the socket ID
+      let chat = `
+        <div class="chat-head">
+          <p id="chat-name">${nameInput}</p> 
+          <span id="chat-time">${time}</span> 
+        </div>
+        <div class="chat-content">
+          <p id="chat-text">${mess}</p>
+        </div>
+      `;
+      socket.emit('chat message', { socketid: socketID, chat: chat }); // Emit the chat message event with the socket ID and chat content
+      $('#messInput').val('')
+      return false; // Prevent form submission
+    });
+
+    socket.on('chat message', (msg) => { // Listen for chat message events
+      var chatFrame = '.chat-conversation'; // Selector for the chat conversation container
+      var avatar = `
+        <div class="chat-image">
+          <i class="fa fa-user-circle" aria-hidden="true" style="font-size: 40px;margin-top:20px"></i> 
+        </div>
+      `;
+      var left = `
+        <div class="chat-item chat-item-left animated slideInLeft" id="chat">
+          ${avatar} 
+          <div class="chat-line animated zoomInLeft">
+            <div class="chat-text" id="chat-Left">${msg.chat}</div> 
+          </div>
+        </div>
+      `;
+      var right = `
+        <div class="chat-item chat-item-right animated slideInRight" id="chat">
+          ${avatar} 
+          <div class="chat-line animated zoomInRight">
+            <div class="chat-text" id="chat-Right">${msg.chat}</div> 
+          </div>
+        </div>
+      `;
+      // Check if the chat message is sent by the current user
+      if (msg.socketid === socket.id) {
+        // Append the chat message to the right side of the chat conversation
+        $(chatFrame).append(right);
+      }
+      // Check if the chat message is sent by another user
+      else {
+        // Append the chat message to the left side of the chat conversation
+        $(chatFrame).append(left);
+      }
+    });
+  });
+</script>
